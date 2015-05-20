@@ -1,20 +1,42 @@
+# Use container-based infrastructure (see: http://docs.travis-ci.com/user/workers/container-based-infrastructure/).
+sudo: false
 language: go
 go:
   - 1.4
+addons:
+  apt:
+    sources:
+    - mariadb-10.0
+    packages:
+    - libmariadbclient18
+    - libmariadbclient-dev
+    - mariadb-client
+    - mariadb-server
+    - automake
+    - libtool
+    - memcached
+    - python-dev
+    - python-mysqldb
+    - python-pip
+    - python-virtualenv
+    - libssl-dev
+    - g++
+    - mercurial
+    - git
+    - pkg-config
+    - bison
+    - bc
 env:
   global:
     - MYSQL_FLAVOR=MariaDB
   matrix:
-    - MAKE_TARGET=java_vtgate_client_test
+#   - MAKE_TARGET=java_vtgate_client_test
     - MAKE_TARGET=unit_test_goveralls
     - MAKE_TARGET=small_integration_test
     - MAKE_TARGET=medium_integration_test
     - MAKE_TARGET=large_integration_test
     - MAKE_TARGET=queryservice_test
     - MAKE_TARGET=unit_test
-before_install:
-  - bash -v travis/dependencies.sh
-  - sudo bash -v travis/install_grpc.sh
 install:
   - bash -v bootstrap.sh --skip_root_installs
 script:

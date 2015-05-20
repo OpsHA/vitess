@@ -75,7 +75,7 @@ fi
 
 # install gRPC C++ base, so we can install the python adapters
 grpc_dist=$VTROOT/dist/grpc
-if [ $SKIP_ROOT_INSTALLS == "True" ]; then
+if [ $SKIP_ROOT_INSTALLS == "DISABLED_True" ]; then
   echo "skipping grpc build, as root version was already installed."
 elif [ -f $grpc_dist/.build_finished ]; then
   echo "skipping gRPC build. remove $grpc_dist to force rebuild."
